@@ -50,6 +50,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['saldo'] /= $valor;
             }
         }
+        if($_SESSION['saldo'] < -1000){
+            $_SESSION['pena'] = "de morte";
+        }
+        else if($_SESSION['saldo'] < -0){
+            $_SESSION['pena'] = "de cadeia";
+        }
+        else{
+            $_SESSION['pena'] = "sem pena";
+        }
     }
 }
 ?>
@@ -72,7 +81,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <h2 class="text-center">Calculadora de Saldo Bancário</h2>
 
     <div class="alert alert-info mt-4">
-        Saldo atual: R$ <?= number_format($_SESSION['saldo'], 2, ',', '.') ?>
+        Saldo atual: R$ <?= number_format($_SESSION['saldo'], 2, ',', '.') ?> <br>
+        Pena: <?= $_SESSION['pena'] ?>
     </div>
 
     <form method="post" action="" class="mt-4">
