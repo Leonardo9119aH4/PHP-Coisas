@@ -23,6 +23,11 @@
             <label for="operacao">Operação:</label>
             <select class="form-control" id="operacao" name="operacao" required>
                 <option value="adicao">Adição</option>
+                <option value="subtracao">Subtração</option>
+                <option value="multi">Multiplicação</option>
+                <option value="divisao">Divisão</option>
+                <option value="expo">Exponenciação</option>
+                <option value="modulo">Módulo</option>
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Calcular</button>
@@ -38,6 +43,31 @@
         switch ($operacao) {
             case 'adicao':
                 $resultado = $numero1 + $numero2;
+                break;
+            case 'subtracao':
+                $resultado = $numero1 - $numero2;
+                break;
+            case 'multi':
+                $resultado = $numero1 * $numero2;
+                break;
+            case 'divisao':
+                if($numero2 == 0) {
+                    $resultado = 'Não pode dividir por 0';
+                }
+                else{
+                    $resultado = $numero1 / $numero2;
+                }
+                break;
+            case 'expo':
+                $resultado = $numero1 ** $numero2;
+                break;
+            case 'modulo':
+                if($numero2 == 0) {
+                    $resultado = 'Não pode dividir por 0';
+                }
+                else{
+                    $resultado = $numero1 % $numero2;
+                }
                 break;
             default:
                 $resultado = 'Operação inválida';
