@@ -1,21 +1,20 @@
 <?php
 require_once('inc/topo.php');
 session_start();
-function aplicarCupom(){
-   if($_SESSION['cupom'] == "KaBum"){
-      $_SESSION['subtotal'] -= $_SESSION['subtotal']*0.2;
-   }
-   if($_SESSION['cupom'] == "PHP"){
-      $_SESSION['subtotal'] -= $_SESSION['subtotal']*0.1;
-   }
-   if($_SESSION['cupom'] == "Créditos Sociais"){
-      $_SESSION['subtotal'] -= $_SESSION['subtotal']*0.99;
-   }
-   if($_SESSION['cupom'] == "Débitos Sociais"){
-      $_SESSION['subtotal'] *= 2;
+function aplicarCupons(){
+   for($i=0; $i<count($_SESSION['cupons']); $i++){
+      if($_SESSION['cupons'][$i] == "PHP"){
+         $_SESSION['subtotal'] -= $_SESSION['subtotal']*0.1;
+      }
+      if($_SESSION['cupons'][$i] == "KaBum"){
+         $_SESSION['subtotal'] -= $_SESSION['subtotal']*0.2;
+      }
+      if($_SESSION['cupons'][$i] == "Créditos Sociais"){
+         $_SESSION['subtotal'] -= $_SESSION['subtotal']*0.99;
+      }
    }
 }
-if(!isset($_SESSION['produto'])){
+if(!isset($_SESSION['gpu'])){
    $_SESSION['gpu']=true;
 }
 if(!isset($_SESSION['quantidade'])){
@@ -24,25 +23,35 @@ if(!isset($_SESSION['quantidade'])){
 if(!isset($_SESSION['subtotal'])){
    $_SESSION['subtotal']=2949.90; 
 }
-if(!isset($_SESSION['cupom'])){
-   $_SESSION['cupom'] = null;
+if(!isset($_SESSION['cupons'])){
+   $_SESSION['cupons'] = [];
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
    if(isset($_POST['menos'])){
       if(! ($_SESSION['quantidade']-1 < 0)){
          $_SESSION['quantidade']--;
          $_SESSION['subtotal'] = $_SESSION['quantidade']*2949.90;
-         aplicarCupom();
+         aplicarCupons();
       }
    }
    if(isset($_POST['mais'])){
       $_SESSION['quantidade']++;
       $_SESSION['subtotal'] = $_SESSION['quantidade']*2949.90;
-      aplicarCupom();
+      aplicarCupons();
    }
    if(isset($_POST["cupom"])){
-      $_SESSION['cupom'] = $_POST['cupom'];
-      aplicarCupom();
+      $jaAplicado=false;
+      for($i=0; $i<count($_SESSION['cupons']); $i++){
+         if($_SESSION['cupons'][$i]===$_POST['cupom']){
+            $jaAplicado=true;
+            break;
+         }
+      }
+      if(!$jaAplicado){
+         array_push($_SESSION['cupons'], $_POST['cupom']);
+      }
+      $_SESSION['subtotal'] = $_SESSION['quantidade']*2949.90;
+      aplicarCupons();
    }
    if(isset($_POST["remover"])){
       $_SESSION['gpu']=false;
