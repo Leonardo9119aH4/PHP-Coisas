@@ -1,4 +1,20 @@
-<?php require_once('inc/topo.php');?>
+<?php
+require_once('inc/topo.php');
+session_start();
+if(isset($_SESSION['logged']) && $_SESSION['logged']){
+   header("Location: ./finalizar.php");
+}
+if(isset($_POST['login'])){
+   echo $_POST['email_cliente'] . "<br>".$_SESSION['email_cliente']."<br";
+   echo $_POST['cliente_senha'] ."<br>".$_SESSION['cliente_senha'];
+   if($_POST['email_cliente'] === $_SESSION['email_cliente'] && $_POST['cliente_senha'] === $_SESSION['cliente_senha']){
+      $_SESSION['logged']=TRUE;
+   }
+   else {
+      echo "<script type='text/javascript'>alert('Email e/ou senha incorretos!');</script>";
+   }
+}
+?>
       <div class="main_content">
          <div class="login_register_wrap section">
             <div class="container">

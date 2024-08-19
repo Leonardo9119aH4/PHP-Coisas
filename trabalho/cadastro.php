@@ -1,4 +1,18 @@
-<?php require_once('inc/topo.php');?>
+<?php 
+require_once('inc/topo.php');
+session_start();
+if(isset($_POST['register'])){
+   $_SESSION['nome_cliente']=$_POST['nome_cliente'];
+   $_SESSION['sobrenome_cliente']=$_POST['sobrenome_cliente'];
+   $_SESSION['cpf']=$_POST['cpf'];
+   $_SESSION['fone_cliente']=$_POST['fone_cliente'];
+   $_SESSION['whats_cliente']=$_POST['whats_cliente'];
+   $_SESSION['email_cliente']=$_POST['email_cliente'];
+   $_SESSION['cliente_senha']=$_POST['cliente_senha'];
+   header("Location: ./login.php");
+}
+
+?>
       <div class="main_content">
          <div class="login_register_wrap section">
             <div class="container">
