@@ -5,8 +5,6 @@ if(isset($_SESSION['logged']) && $_SESSION['logged']){
    header("Location: ./finalizar.php");
 }
 if(isset($_POST['login'])){
-   echo $_POST['email_cliente'] . "<br>".$_SESSION['email_cliente']."<br";
-   echo $_POST['cliente_senha'] ."<br>".$_SESSION['cliente_senha'];
    if($_POST['email_cliente'] === $_SESSION['email_cliente'] && $_POST['cliente_senha'] === $_SESSION['cliente_senha']){
       $_SESSION['logged']=TRUE;
    }
