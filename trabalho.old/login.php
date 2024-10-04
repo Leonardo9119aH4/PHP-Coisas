@@ -1,17 +1,16 @@
-<?php 
+<?php
 require_once('inc/topo.php');
-require_once('inc/conexao.php');
-require_once('classes/cliente.php');
-//$_SESSION['logado'] = false;
-if($_SESSION['logado']){
-    header('location: finalizar.php');
+session_start();
+if(isset($_SESSION['logged']) && $_SESSION['logged']){
+   header("Location: ./finalizar.php");
 }
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $cliente = new Cliente($conn);
-    $cliente->setemail_cliente($_POST['email_cliente']);
-    $cliente->setcliente_senha($_POST['cliente_senha']);
-    $cliente->logar();
+if(isset($_POST['login'])){
+   if($_POST['email_cliente'] === $_SESSION['email_cliente'] && $_POST['cliente_senha'] === $_SESSION['cliente_senha']){
+      $_SESSION['logged']=TRUE;
+   }
+   else {
+      echo "<script type='text/javascript'>alert('Email e/ou senha incorretos!');</script>";
+   }
 }
 ?>
       <div class="main_content">

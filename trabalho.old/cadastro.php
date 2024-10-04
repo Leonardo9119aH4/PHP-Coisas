@@ -1,25 +1,18 @@
 <?php 
 require_once('inc/topo.php');
-require_once('inc/conexao.php');
-require_once('classes/cliente.php');
-
-//$_SESSION['logado'] = false;
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $cliente = new Cliente($conn);
-    
-    $cliente->setnome_cliente($_POST['nome_cliente']);
-    $cliente->setsobrenome_cliente($_POST['sobrenome_cliente']);
-    $cliente->setcpf_cliente($_POST['cpf_cliente']);
-    $cliente->setfone_cliente($_POST['fone_cliente']);
-    $cliente->setwhats_cliente($_POST['whats_cliente']);
-    $cliente->setemail_cliente($_POST['email_cliente']);
-    $cliente->setcliente_senha($_POST['cliente_senha']);
-    $cliente->insert();
-    
+session_start();
+if(isset($_POST['register'])){
+   $_SESSION['nome_cliente']=$_POST['nome_cliente'];
+   $_SESSION['sobrenome_cliente']=$_POST['sobrenome_cliente'];
+   $_SESSION['cpf']=$_POST['cpf'];
+   $_SESSION['fone_cliente']=$_POST['fone_cliente'];
+   $_SESSION['whats_cliente']=$_POST['whats_cliente'];
+   $_SESSION['email_cliente']=$_POST['email_cliente'];
+   $_SESSION['cliente_senha']=$_POST['cliente_senha'];
+   header("Location: ./login.php");
 }
+
 ?>
-<html>
-   <body>
       <div class="main_content">
          <div class="login_register_wrap section">
             <div class="container">

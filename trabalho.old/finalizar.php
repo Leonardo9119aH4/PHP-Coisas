@@ -1,22 +1,17 @@
-<?php require_once('inc/topo.php');
-
-echo '<pre>';
-print_r($_SESSION);
-die;
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-     $_SESSION['cep_cliente_endereco'] = $_POST['cep_cliente_endereco'];
-     $_SESSION['endereco_cliente_endereco'] = $_POST['endereco_cliente_endereco'];
-     $_SESSION['numero_cliente_endereco'] = $_POST['numero_cliente_endereco'];
-     $_SESSION['complemento_cliente_endereco'] = $_POST['complemento_cliente_endereco'];
-     $_SESSION['bairro_cliente_endereco'] = $_POST['bairro_cliente_endereco'];
-     $_SESSION['cod_uf'] = $_POST['cod_uf'];
-     $_SESSION['namo_cidade'] = $_POST['namo_cidade'];
-     $_SESSION['obs_pedido'] = $_POST['obs_pedido'];
-     
-     echo 'Pedido finalizado com sucesso!';
-     die;
+<?php
+require_once('inc/topo.php');
+session_start();
+if ($_SERVER["REQUEST_METHOD"] == "POST"){
+   if(isset($_POST['form'])){
+      header("Location: ./sucesso.php");
+   }
+}
+if(!isset($_SESSION['logged'])){
+   header("Location: ./login.php");
 }
 ?>
+<html>
+   <body>
       <div class="main_content">
          <!-- START SECTION SHOP -->
          <div class="section">
@@ -28,13 +23,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                            <h4>Detalhes de faturamento / Entrega</h4>
                         </div>
                         <div class="form-group">
-                            <input type="text" required="" class="form-control" name="nome_cliente" placeholder="Nome *" value="<?=$_SESSION['nome_cliente']?>">
+                           <input type="text" required="" class="form-control" name="nome_cliente" placeholder="Nome *" value="<?= $_SESSION['nome_cliente'] ?>">
                         </div>
                         <div class="form-group">
-                            <input type="text" required="" class="form-control" name="sobrenome_cliente" placeholder="Sobrenome *" value="<?=$_SESSION['sobrenome_cliente']?>">
+                           <input type="text" required="" class="form-control" name="sobrenome_cliente" placeholder="Sobrenome *" value="<?= $_SESSION['sobrenome_cliente'] ?>">
                         </div>
                         <div class="form-group">
-                            <input class="form-control" required="" type="text" name="cpf_cliente" placeholder="CPF" value="<?=$_SESSION['cpf_cliente']?>">
+                           <input class="form-control" required="" type="text" name="cpf_cliente" placeholder="CPF" value="<?= $_SESSION['cpf'] ?>">
                         </div>
                         <div class="form-group">
                            <input type="text" class="form-control cep" name="cep_cliente_endereco" required="" placeholder="CEP *" value="" maxlength="9">
@@ -89,13 +84,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                            <input class="form-control" required="" type="text" name="namo_cidade" placeholder="Cidade">
                         </div>
                         <div class="form-group">
-                            <input class="form-control" required="" type="text" name="fone_cliente" placeholder="Telefone *" value="<?=$_SESSION['fone_cliente']?>">
+                           <input class="form-control" required="" type="text" name="fone_cliente" placeholder="Telefone *" value="<?= $_SESSION['fone_cliente'] ?>">
                         </div>
                         <div class="form-group">
-                            <input class="form-control" required="" type="text" name="whats_cliente" placeholder="WhatsApp *" value="<?=$_SESSION['whats_cliente']?>">
+                           <input class="form-control" required="" type="text" name="whats_cliente" placeholder="WhatsApp *" value="<?= $_SESSION['whats_cliente'] ?>">
                         </div>
                         <div class="form-group">
-                            <input class="form-control" required="" type="text" name="email_cliente" placeholder="E-mail *" value="<?=$_SESSION['email_cliente']?>">
+                           <input class="form-control" required="" type="text" name="email_cliente" placeholder="E-mail *" value="<?= $_SESSION['email_cliente'] ?>">
                         </div>
                         <div class="heading_s1">
                            <h4>Observação</h4>
@@ -119,8 +114,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                  </thead>
                                  <tbody>
                                     <tr>
-                                       <td class="product-name" data-title="Product"><a href=""><?=$_SESSION['product-name']?><strong> x <?=$_SESSION['qtde_pedido_item']?></strong></a></td>
-                                       <td class="product-subtotal" data-title="Total"><?= number_format(($_SESSION['product-price']*$_SESSION['qtde_pedido_item']),2,',','.')?></td>
+                                       <td class="product-name" data-title="Product"><a href="">Placa de Vídeo Asus Dual NVIDIA GeForce RTX 2070 EVO V2 OC Edition, 8GB, GDDR6 <strong>x <?= $_SESSION['quantidade'] ?></strong></a></td>
+                                       <td class="product-subtotal" data-title="Total">R$<?= $_SESSION['subtotal'] ?></td>
                                     </tr>
                                  </tbody>
                               </table>
@@ -132,7 +127,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                               <div class="payment_option">
                                  <div class="custome-radio">
                                     <p data-method="option3" class="payment-text">
-                                       <button type="submit" class="btn btn-fill-out btn-block">Finalizar</button>
+                                       <button type="submit" name="form" class="btn btn-fill-out btn-block">Finalizar</button>
                                     </p>
                                  </div>
                               </div>
